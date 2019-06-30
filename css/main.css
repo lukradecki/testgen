@@ -1,0 +1,231 @@
+html, body{
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+    background-color: #676767;
+    /* font-family: Arial, Helvetica, sans-serif; */
+}
+iframe{
+    margin:0;
+    padding: 0;
+}
+.buttonshadow{
+    box-shadow: 2px 4px 2px rgb(48, 48, 48);
+}
+.buttonshadow:hover{
+    box-shadow: 1px 2px 5px rgb(48, 48, 48);
+    transition: box-shadow 0.2s;
+}
+.nav{
+    display: grid;
+    /* background-color: #828282; */
+    list-style: none;
+    padding: 10px;
+    grid-column-gap: 10px;
+    grid-row-gap: 10px;
+    box-sizing: border-box;
+}
+.nav>li{
+    display: block;
+    box-sizing: border-box;
+}
+.nav>li>a{
+    box-sizing: border-box;
+    display: block;
+    box-shadow: 2px 4px 4px rgb(48, 48, 48);
+    color: black;
+    padding: 15px 0;
+    text-decoration: none;
+    background-color: lightsalmon;
+    border-radius: 3px;
+    text-align: center;
+    
+}
+.nav>li>a:hover{
+    background-color: lightgreen;
+    /* box-shadow: 0px 0px 2px 0.5px white; */
+    transition: box-shadow 0.2s;
+    color:black;
+    border-radius: 5px;
+}
+.delico{
+    width: 25px;
+    height: 25px;
+    margin-right: 10px;
+    align-self: center;
+    transition:  border-radius 0.5s;
+}
+.delico:hover{
+    cursor: pointer;
+    background-color: transparent;
+    transition:  border-radius 0.5s;
+    border-radius: 20px;
+}
+.answers{
+    display: block;
+    margin: 5px 0;
+}
+.container{
+    display: flex;
+    min-width: 305px;
+    flex-direction: column;
+    background-color: transparent;
+}
+#questioncon{
+    display: flex;
+    flex-direction: column;
+}
+.question{
+    display: flex;
+    flex-direction: column;
+    background: rgba(144, 238, 144, .7);
+    /* background: rgba(47, 231, 255, 0.5); */
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 5px;
+    margin: 15px 0;
+    padding: 3px;
+}
+/* .question:not(:last-child){
+    border-bottom: lightskyblue double 5px;
+} */
+.content{
+    resize: none;
+    height: 50px;
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 50px;
+    font-size: 1.3em;
+    box-shadow: 1px 3px 5px rgb(48, 48, 48);
+    border-radius: 5px;
+}
+.quest{
+    display: flex;
+}
+.button{
+    display: block;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 5px;
+    color: black;
+}
+.button:hover{
+    color: white;
+    cursor: pointer;
+    background-color: lightgreen;
+}
+.addAnswer{
+    margin-left: 5px;
+    font-size: 1.8rem;
+    height: 50px;
+    min-width: 50px;
+    background-color: lightsalmon;
+}
+.answer{
+    width: 100%;
+    resize: vertical;
+    height: 50px;
+    min-height: 50px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    font-size: 1.2em;
+    box-shadow: 1px 3px 5px rgb(48, 48, 48);
+}
+.poscheck{
+    margin: 15px 5px;
+}
+.check{
+    /* outline: 3px #5784CF solid; */
+    /* background: ; */
+    text-align: center;
+    margin: 15px 15px;
+    border-radius: 5px;
+}
+.pun{
+    display: flex;
+    margin: 8px 0;
+    list-style: none;
+    align-items: center;
+}
+.addQuestion{
+    height: 50px;
+    background-color: lightsalmon;
+}
+textarea{
+    border: none;
+    padding: 5px;
+    color: white;
+    background: #3E3E3E;
+}
+
+.popup{
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.6);
+    width: 100%;
+    height: 100%;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: none;
+}
+.popup-content{
+    width: 600px;
+    height: 400px;
+    background-color: white;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 0 5px;
+    display: flex;
+    justify-content: stretch;
+}
+.popup-theme-choose{
+    width: 30%;
+}
+.popup-theme-right{
+    display: flex;
+    width:70%;
+    flex-direction: column;
+}
+.popup-theme-buttons{
+    display: flex;
+}
+.popup-theme-buttons >a{
+    display: block;
+    color: black;
+    width:100%;
+    padding: 10px 5px;
+    margin: 5px 15px;
+    text-decoration: none;
+    background-color: lightsalmon;
+    border-radius: 3px;
+    text-align: center;
+}
+@media screen and (min-width: 1200px){
+    .nav{
+        grid-template-columns: auto auto auto auto;
+    }
+    .container{
+        margin: 0 6vw;
+    }
+}
+@media screen and (min-width: 600px) and (max-width: 1199px){
+    .nav{
+        grid-template-columns: auto auto;
+        grid-template-rows:  auto auto;
+    }
+    .container{
+        margin: 0 3vw;
+    }
+}
+@media screen and (max-width: 599px){
+    .nav>li>a{
+        padding: 10px 0;
+    }
+    .container{
+        margin: 0 0;
+        padding: 1px 1px;
+    }
+    .answers{
+        padding: 0 0 0 5px;
+    }
+}

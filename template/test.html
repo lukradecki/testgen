@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pl-PL">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+        {{style}}
+    </style>
+    <script>
+        window.onload = function (){
+            
+            document.querySelector('#gradeTest').addEventListener('click', function(){
+                let testObject = '{{json-answers}}';
+                let JsonObject = JSON.parse(testObject);
+                
+                let sheetObj = {};
+
+                for(let key in JsonObject){
+                    if(JsonObject.hasOwnProperty(key)){
+                        let val = JsonObject[key]
+                        if(sheetObj.hasOwnProperty(val.q)){
+                            sheetObj[val.q].push(val.a);
+                        }else{
+                            sheetObj[val.q] = [];
+                            sheetObj[val.q].push(val.a); 
+                        }
+                    }
+                }
+
+                let testObj = {};
+
+                let questions = document.querySelectorAll('.question');
+
+                for(let i = 0; i<questions.length; ++i){
+                    let elem1 = questions[i];
+                    if(elem1 != null){
+                        let answers = questions[i].querySelectorAll('.answerbox');
+                        for(let j = 0; j<answers.length; ++j){
+                            elem2 = answers[j];
+                            if(elem2 != null){
+                                let qpos = Number(elem2.getAttribute('question-pos'));
+                                let apos = Number(elem2.getAttribute('answer-pos'));
+                                if(testObj.hasOwnProperty(qpos)){
+                                    if(elem2.checked){
+                                        testObj[qpos].push({'answer': elem2.parentElement, 'pos': apos, 'check': true});
+                                    }else{
+                                        testObj[qpos].push({'answer': elem2.parentElement, 'pos': apos});
+                                    }
+                                    
+                                }else{
+                                    testObj[qpos] = [];
+                                    if(elem2.checked){
+                                        testObj[qpos].push({'answer': elem2.parentElement, 'pos': apos, 'check': true});
+                                    }else{
+                                        testObj[qpos].push({'answer': elem2.parentElement, 'pos': apos});
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                let corr = {};
+
+                for(let tkey in testObj ){
+                    if(testObj.hasOwnProperty(tkey)){
+                        for(let skey in sheetObj){
+                            if(sheetObj.hasOwnProperty(skey)){
+                                if(tkey == skey){
+                                    let testElement = testObj[tkey];
+                                    let sheetElement = sheetObj[skey];
+                                    if(testElement != null && sheetElement !=null){
+                                        for(let i =0; i < testElement.length; i++){
+                                            testElement[i]['answer'].style.background = 'red';
+                                            for(let j = 0; j < sheetElement.length; j++){
+                                                if(testElement[i]['pos'] == sheetElement[j]){
+                                                    testElement[i]['answer'].style.background = 'green';
+                                                    if(testElement[i]['check'] != undefined){
+                                                        if(corr.hasOwnProperty(tkey)){
+                                                            corr[tkey].push(1);
+                                                        }else{
+                                                            corr[tkey] = [];
+                                                            corr[tkey].push(1);
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                function HMQuestions(){
+                    let count =0;
+                    for(let key in testObj){
+                        if(testObj.hasOwnProperty(key)){
+                            count++;
+                        }
+                    }
+                    return count;
+                }
+
+                let count = 0;
+
+                for(let tkey in corr ){
+                    if(testObj.hasOwnProperty(tkey)){
+                        for(let skey in sheetObj){
+                            if(sheetObj.hasOwnProperty(skey)){
+                                if(tkey == skey){
+                                    let corrElement = corr[tkey];
+                                    let sheetElement = sheetObj[skey];
+                                    if(corrElement != null && sheetElement !=null){
+                                        if(corrElement.length == sheetElement.length){
+                                            count++;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                alert('Zdobyte punkty: ' + count + '/' + HMQuestions() + '\n' + 'Procent: ' + Math.round(count*100/HMQuestions()) + '%');
+                
+            });
+        };
+    </script>
+</head>
+<body id="body">
+    <div class="container">
+        <div class="questions">
+            {{questions}}
+        </div>
+        <input id="gradeTest" class="button" type="button" value="Sprawdź">
+    </div>
+</body>
+</html>
